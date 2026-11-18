@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSK 6 Nghị luận xã hội</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky header with 4 tabs, filter bar, card grid; flashcard mode in the 4th tab. */
+:root{
+  --bg:#fff5f4; --surface:#ffffff; --ink:#3a0f12; --muted:#8a5558; --line:#f6d2d0;
+  --accent:#c4161c; --accent-soft:#fde3e1; --gold:#a15c07; --gold-soft:#fdf0d5; --ok:#15803d;
+  --head:#7a0f14; --headtext:#fff; --headmuted:#f6c3c0;
+  --font-body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-han:'Noto Serif SC','Songti SC','SimSun',serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1f0e0f; --surface:#2c1415; --ink:#fbe9e8; --muted:#dba7a6; --line:#4d2527;
+    --accent:#f87171; --accent-soft:#4a1d1e; --gold:#f5c26b; --gold-soft:#3d2c12; --ok:#6ee7a0;
+    --head:#360f11; --headtext:#fff; --headmuted:#eab3b1;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1f0e0f; --surface:#2c1415; --ink:#fbe9e8; --muted:#dba7a6; --line:#4d2527;
+  --accent:#f87171; --accent-soft:#4a1d1e; --gold:#f5c26b; --gold-soft:#3d2c12; --ok:#6ee7a0;
+  --head:#360f11; --headtext:#fff; --headmuted:#eab3b1;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.55;font-size:16px}
+.han,.w,.ex,.k .zh{font-family:var(--font-han)}
+header{background:var(--head);color:var(--headtext);padding:20px 16px 0}
+.wrap{max-width:980px;margin:0 auto}
+h1{margin:0 0 4px;font-size:1.35rem;font-weight:700;text-wrap:balance}
+header p{margin:0 0 14px;color:var(--headmuted);font-size:.92rem}
+nav{display:flex;gap:4px;overflow-x:auto}
+nav button{flex:0 0 auto;border:0;background:transparent;color:var(--headmuted);font:inherit;font-weight:600;font-size:.95rem;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer}
+nav button:hover{color:var(--headtext)}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--ink)}
+button:focus-visible,input:focus-visible,.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{padding:16px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.search{flex:1 1 220px;min-width:0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.tog{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);cursor:pointer;user-select:none}
+.tog input{width:18px;height:18px;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.88rem;padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#2b0a0b}
+.prog{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+.prog b{color:var(--ink)}
+.bartrack{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:6px}
+.bartrack i{display:block;height:100%;background:var(--accent);width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;position:relative}
+.card.done{border-color:var(--accent);background:linear-gradient(0deg,var(--accent-soft),var(--accent-soft)),var(--surface)}
+.k{font-size:.82rem;color:var(--muted);display:flex;gap:8px;align-items:center;padding-right:34px}
+.k .zh{font-size:1.15rem;color:var(--gold);background:var(--gold-soft);border-radius:8px;padding:0 10px}
+.k .arr{color:var(--muted)}
+.w{font-size:1.3rem;font-weight:700;line-height:1.4}
+.m{font-size:.88rem;color:var(--muted)}
+.ex{font-size:1rem;border-left:3px solid var(--accent);padding-left:10px;margin-top:2px;line-height:1.6}
+.chk{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;color:transparent;font-size:.9rem;padding:0}
+.chk[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.hide .card:not(.shown) .rev{filter:blur(8px);user-select:none}
+.hide .card:not(.shown){cursor:pointer}
+.notes{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 18px 14px}
+.notes h2{font-size:1.05rem;margin:14px 0 6px}
+.notes ul,.notes ol{margin:0;padding-left:20px}
+.notes li{margin:5px 0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 12px}
+.pair div{border-radius:10px;padding:10px 12px;font-size:.98rem}
+.pair .a{background:var(--gold-soft)}
+.pair .b{background:var(--accent-soft)}
+.pair small{display:block;color:var(--muted);font-size:.78rem;margin-bottom:2px}
+.sample{font-family:var(--font-han);background:var(--accent-soft);border-radius:10px;padding:12px 14px;line-height:1.8}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+/* flashcards */
+.decks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.fc{max-width:560px;margin:0 auto}
+.fcard{min-height:260px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:center;cursor:pointer;user-select:none}
+.fcard .lab{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.fcard .big{font-family:var(--font-han);font-size:1.7rem;font-weight:700;line-height:1.45;text-wrap:balance}
+.fcard .front{font-size:1.4rem;font-weight:600;line-height:1.5}
+.fcard.vocabfront .front{font-family:var(--font-han);font-size:2.4rem}
+.fcard .ex{text-align:left;display:inline-block;align-self:center}
+.fcard .hint{color:var(--muted);font-size:.85rem}
+.fcrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;padding:10px 16px;border-radius:12px;cursor:pointer}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.pri{color:#2b0a0b}
+.count{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
+@media (max-width:560px){.pair{grid-template-columns:1fr}.w{font-size:1.2rem}}
+@media (prefers-reduced-motion:no-preference){.card,.chip,.btn{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>HSK 6 Nghị luận xã hội</h1>
+    <p>Từ vựng 书面语, ngữ pháp nâng cao và khung câu theo vị trí trong bài</p>
+    <nav id="tabs" role="tablist"></nav>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ---------- DATA ---------- */
+var DECKS = {
+vocab:{
+ slug:'tu-vung', title:'Từ vựng 书面语', unit:'cặp từ', keyLabel:'Khẩu ngữ',
+ groups:[
+ {name:'Động từ', items:[
+  ['觉得','认为 / 主张','cho rằng, chủ trương','许多人认为网络教育利大于弊。'],
+  ['说','指出 / 表示 / 强调','chỉ ra, bày tỏ, nhấn mạnh','专家指出，过度依赖手机会影响睡眠。'],
+  ['让','使 / 令','khiến cho','科技进步使生活更加便利。'],
+  ['帮助','有助于 / 助力','có lợi cho, thúc đẩy','阅读有助于开阔视野。'],
+  ['用','利用 / 运用','lợi dụng, vận dụng','我们应当合理利用社交媒体。'],
+  ['知道','了解 / 意识到','hiểu rõ, nhận thức được','越来越多的人意识到环保的重要性。'],
+  ['做','从事 / 开展 / 实施','làm nghề, triển khai, thực thi','政府开展了一系列扶贫工作。'],
+  ['花（时间、钱）','耗费 / 消耗','tiêu tốn','长途通勤耗费了大量时间。'],
+  ['得到','获得 / 取得','đạt được','这项政策取得了显著成效。'],
+  ['找','寻求 / 寻找','tìm kiếm','年轻人往往寻求更自由的工作方式。'],
+  ['变','转变 / 改变 / 演变','chuyển biến','人们的消费观念发生了转变。'],
+  ['怕','担忧 / 担心','lo ngại','家长们担忧孩子沉迷网络。'],
+  ['想要','渴望 / 期待','khao khát, mong đợi','人们渴望获得更好的医疗服务。'],
+  ['有','具有 / 拥有','có, sở hữu','这种模式具有推广价值。'],
+  ['叫','称为 / 被称为','được gọi là','这种现象被称为“信息茧房”。'],
+  ['看重','重视 / 注重','coi trọng','企业越来越注重员工的身心健康。'],
+  ['解决','化解 / 应对','hóa giải, ứng phó','要及时化解社会矛盾。'],
+  ['比','相比 / 相较于','so với','相较于过去，现代人的压力明显增大。']
+ ]},
+ {name:'Liên từ', items:[
+  ['但是','然而 / 不过','tuy nhiên','科技带来便利，然而也带来隐患。'],
+  ['因为','由于 / 鉴于','bởi vì, xét thấy','由于人口老龄化，养老问题日益突出。'],
+  ['所以','因此 / 从而','do đó, từ đó','教育水平提高，从而推动了社会进步。'],
+  ['如果','倘若 / 假如 / 若','nếu như','倘若不加以控制，污染将进一步恶化。'],
+  ['虽然','尽管 / 虽说','mặc dù','尽管成效显著，问题依然存在。'],
+  ['还有','此外 / 另外 / 同时','ngoài ra, đồng thời','此外，政府也应加强监管。'],
+  ['然后','随后 / 继而','sau đó','先试点，随后在全国推广。'],
+  ['比如','例如 / 譬如 / 以……为例','ví dụ','以共享单车为例，它方便了短途出行。'],
+  ['其实','事实上 / 实际上','trên thực tế','事实上，节约并不意味着吝啬。'],
+  ['一般','通常 / 一般而言','thông thường','一般而言，教育投入与经济发展呈正相关。'],
+  ['只有','唯有','chỉ có','唯有全社会共同努力，才能解决这一问题。'],
+  ['就是','即 / 也就是说','tức là','所谓“双减”，即减轻学生作业负担和校外培训负担。'],
+  ['总之','综上所述 / 总而言之','tóm lại','综上所述，利大于弊。']
+ ]},
+ {name:'Danh từ', items:[
+  ['缺点','弊端 / 不足 / 缺陷','mặt hạn chế','这一制度存在不少弊端。'],
+  ['好处','益处 / 裨益 / 优势','lợi ích','运动对身心健康大有裨益。'],
+  ['坏处','危害 / 弊端 / 负面影响','tác hại','吸烟的危害不容忽视。'],
+  ['问题','隐患 / 难题 / 困境 / 弊病','nguy cơ, khó khăn','食品安全隐患引起了广泛关注。'],
+  ['办法','对策 / 措施 / 举措 / 途径','đối sách, biện pháp','政府出台了多项举措缓解交通拥堵。'],
+  ['原因','缘由 / 成因 / 根源','nguyên nhân, gốc rễ','贫富差距的根源在于资源分配不均。'],
+  ['结果','后果（xấu）/ 成效（tốt）/ 成果','hậu quả / hiệu quả / thành quả','忽视环保将导致严重后果。'],
+  ['影响','冲击（mạnh, tiêu cực）/ 效应','tác động, hiệu ứng','网购对实体店造成了巨大冲击。'],
+  ['特点','特征 / 特色','đặc trưng','这一代人具有鲜明的时代特征。'],
+  ['作用','功能 / 功效','công dụng','社区发挥着重要的服务功能。'],
+  ['想法','观念 / 观点 / 理念','quan niệm, quan điểm','传统观念正在悄然改变。'],
+  ['情况','现状 / 状况','hiện trạng','改善农村医疗现状刻不容缓。'],
+  ['事','现象 / 事件 / 事务','hiện tượng, sự kiện','这种现象在城市中尤为普遍。'],
+  ['钱','资金 / 费用 / 财富','vốn, chi phí, của cải','教育需要持续的资金投入。'],
+  ['工作','职业 / 岗位','nghề nghiệp, vị trí việc làm','人工智能将取代部分岗位。'],
+  ['大家','民众 / 公众 / 社会各界','dân chúng, công chúng','公众对此反应强烈。'],
+  ['老人','老年人 / 长者','người cao tuổi','要关爱空巢老年人。'],
+  ['年轻人','青年 / 青少年','thanh niên, thanh thiếu niên','青少年的心理健康值得关注。'],
+  ['孩子','儿童 / 未成年人','trẻ em, người chưa thành niên','未成年人上网需要引导。'],
+  ['地方','地区 / 场所','khu vực, địa điểm','偏远地区的教育资源相对匮乏。']
+ ]},
+ {name:'Tính từ', items:[
+  ['大','巨大 / 庞大 / 重大','to lớn','这项改革具有重大意义。'],
+  ['小','微小 / 细微','nhỏ bé','细微的改变也能带来影响。'],
+  ['多','大量 / 众多 / 诸多','nhiều','诸多因素共同导致了这一结果。'],
+  ['少','稀少 / 有限 / 寥寥无几','ít ỏi','愿意从事这一行业的人寥寥无几。'],
+  ['好','良好 / 出色 / 优越','tốt, xuất sắc','良好的习惯需要长期培养。'],
+  ['坏','恶劣 / 不良','xấu, tồi tệ','不良习惯会影响健康。'],
+  ['快','迅速 / 飞速 / 急剧','nhanh, chóng','城市化进程飞速推进。'],
+  ['慢','缓慢 / 迟缓','chậm','农村经济发展相对缓慢。'],
+  ['难','艰巨 / 棘手','khó, hóc búa','这是一项艰巨的任务。'],
+  ['容易','易于 / 便于','dễ dàng','信息易于传播，也易于失真。'],
+  ['重要','关键 / 至关重要 / 不可或缺','then chốt, không thể thiếu','诚信是社会运转不可或缺的基石。'],
+  ['严重','严峻 / 不容忽视','nghiêm trọng','就业形势十分严峻。'],
+  ['新','崭新 / 新兴','mới mẻ, mới nổi','新兴产业带动了就业。'],
+  ['老 / 旧','传统 / 陈旧','truyền thống, cũ kỹ','陈旧的观念阻碍了发展。']
+ ]},
+ {name:'Phó từ', items:[
+  ['很','十分 / 极其 / 相当 / 颇','rất','这个问题极其复杂。'],
+  ['特别','尤其 / 格外 / 尤为','đặc biệt','尤其是年轻人，更容易受到影响。'],
+  ['越来越','日益 / 愈发 / 与日俱增','ngày càng','环境问题日益严重。'],
+  ['马上','立即 / 立刻 / 随即 / 及时','ngay lập tức','发现问题应及时处理。'],
+  ['总是','始终 / 一贯 / 不断','luôn luôn','我们始终坚持可持续发展。'],
+  ['常常','往往 / 屡屡','thường, nhiều lần','便利的背后往往隐藏着风险。'],
+  ['一直','始终 / 一向','suốt, từ trước đến nay','教育始终是国家发展的根本。'],
+  ['慢慢','逐渐 / 逐步 / 渐渐','dần dần','人们逐渐认识到健康的重要性。'],
+  ['突然','骤然 / 陡然','đột nhiên','需求骤然增加。'],
+  ['只','仅 / 仅仅 / 唯有','chỉ','仅靠个人的力量是不够的。'],
+  ['都','均 / 皆','đều','各项指标均有所提高。'],
+  ['又','再度 / 再次','lại','这一话题再度引发热议。'],
+  ['大概','大约 / 大致','khoảng','大约三成的受访者表示赞同。'],
+  ['差不多','近乎 / 几乎 / 大体','gần như','这种做法近乎于浪费。'],
+  ['一定','必定 / 务必 / 势必','nhất định, tất yếu','不改革，势必被时代淘汰。'],
+  ['可能','或许 / 恐怕 / 有可能','có lẽ','这一趋势或许会持续下去。'],
+  ['完全','彻底 / 全然','hoàn toàn, triệt để','彻底解决问题需要时间。']
+ ]}
+ ],
+ notes:'<h2>Phân biệt các từ dễ nhầm</h2><ul>'+
+  '<li><b class="han">弊端</b> chỉ mặt hạn chế của một chế độ hay cách làm. <b class="han">危害</b> chỉ tác hại đến sức khỏe, môi trường, xã hội.</li>'+
+  '<li><b class="han">隐患</b> là nguy cơ tiềm ẩn, chưa xảy ra. Khi đã xảy ra thì dùng <b class="han">后果</b>.</li>'+
+  '<li><b class="han">后果</b> thường mang nghĩa xấu. <b class="han">成效</b> mang nghĩa tốt.</li>'+
+  '<li><b class="han">尤其</b> nhấn mạnh trường hợp nổi bật nhất, ví dụ 尤其是……. <b class="han">尤为</b> đứng trước tính từ, ví dụ 尤为重要.</li>'+
+  '<li><b class="han">均, 皆, 亦</b> rất trang trọng. Dùng vừa phải, 1 đến 2 lần mỗi bài.</li>'+
+  '<li><b class="han">使, 令</b> thường có chủ ngữ là sự việc, không phải người. Ví dụ: 此举令人担忧.</li></ul>'+
+  '<h2>Chuyển đổi cả câu</h2>'+
+  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">我觉得网上学习有很多好处，但是也有缺点，很多人马上就不想学了。</span></div><div class="b"><small>Văn viết</small><span class="han">我认为网络学习具有诸多优势，然而也存在一些弊端，不少学习者因此很快便选择了放弃。</span></div></div>'+
+  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">现在的年轻人压力特别大，所以问题越来越多。</span></div><div class="b"><small>Văn viết</small><span class="han">当代青年面临着巨大的压力，由此引发的心理问题日益增多。</span></div></div>'+
+  '<h2>Cách học</h2><ol><li>Mỗi ngày học 10 đến 15 cặp từ và tự đặt một câu cho mỗi cặp.</li><li>Học trước nhóm Danh từ và Liên từ vì tần suất cao nhất.</li><li>Cuối tuần, viết lại một đoạn khẩu ngữ ngắn thành văn viết để kiểm tra.</li></ol>'
+},
+grammar:{
+ slug:'ngu-phap', title:'Ngữ pháp nâng cao', unit:'cấu trúc', keyLabel:'Ý nghĩa',
+ groups:[
+ {name:'Nhượng bộ và đối lập', items:[
+  ['Thừa nhận một mặt đúng, nhưng nhấn mạnh mặt sau quan trọng hơn','固然……，但是/可是/然而……','网络购物固然方便，但也存在诸多隐患。'],
+  ['Mặc dù A, vẫn B. 却 đứng sau chủ ngữ của vế sau','尽管……，却/依然/仍然……','尽管科技飞速发展，人们的幸福感却未必随之提高。'],
+  ['Cho dù (giả thiết nhượng bộ)','即使/哪怕……，也……','即使条件有限，我们也应当坚持环保。'],
+  ['Thay vì A, thà B. Vế sau là lựa chọn tốt hơn','与其……，不如……','与其抱怨环境恶化，不如从自身做起。'],
+  ['Thà A còn hơn B','宁可……，也不……','宁可多花些时间，也不能忽视产品质量。'],
+  ['Không phải A mà là B, dùng để sửa lại cách hiểu','不是……，而是……','问题的关键不是技术，而是人们的使用方式。'],
+  ['Nói là A thì đúng hơn là B','与其说……，不如说……','与其说这是技术问题，不如说是观念问题。'],
+  ['Ngược lại','相反 / 反之','反之，如果缺乏监管，市场就容易失序。']
+ ]},
+ {name:'Điều kiện, nhân quả, tăng tiến', items:[
+  ['Dù thế nào cũng. Sau 无论 có từ nghi vấn hoặc cặp A 还是 B','无论/不管……，都/也……','无论社会如何发展，诚信都是立身之本。'],
+  ['Chỉ có thì mới (điều kiện cần)','只有……，才……','只有加强监管，才能保障食品安全。'],
+  ['Chỉ cần thì sẽ (điều kiện đủ)','只要……，就……','只要坚持锻炼，就能增强体质。'],
+  ['Trừ phi, nếu không thì','除非……，否则……','除非全社会共同重视，否则这一问题难以根治。'],
+  ['Một khi thì','一旦……，就……','一旦养成依赖手机的习惯，就很难改变。'],
+  ['Sở dĩ A là vì B','之所以……，是因为……','之所以出现这一现象，是因为教育资源分配不均。'],
+  ['Do A nên B','由于……，因此/从而……','由于人口老龄化，养老问题日益突出。'],
+  ['Không chỉ mà còn','不仅/不但……，而且/还……','网络不仅改变了沟通方式，而且改变了消费习惯。'],
+  ['Không chỉ mà thậm chí','不仅……，甚至……','有些人不仅不遵守规则，甚至公然破坏。'],
+  ['Chẳng những không mà còn ngược lại','不但不……，反而……','过度保护不但不能帮助孩子，反而会限制他们的成长。'],
+  ['Huống chi','何况 / 更何况','成年人尚且难以自控，更何况孩子呢。'],
+  ['Đến mức, dẫn đến (kết quả thường xấu)','以至于 / 以致','工作压力太大，以致不少人出现了健康问题。'],
+  ['Đặc biệt là','尤其是……','尤其是年轻人，更容易受到网络信息的影响。']
+ ]},
+ {name:'So sánh và giới hạn phạm vi', items:[
+  ['So với','与……相比','与过去相比，现代人的生活压力明显增大。'],
+  ['Xét về (một đối tượng cụ thể)','就……而言','就个人而言，终身学习能提升竞争力。'],
+  ['Nhìn từ góc độ','从……角度来看/来说','从长远角度来看，保护环境利大于弊。'],
+  ['Đối với','对……来说/而言','对青少年而言，良好的习惯比成绩更重要。'],
+  ['Ở mức độ lớn','在很大程度上','一个人的成就在很大程度上取决于他的态度。'],
+  ['Về mặt','在……方面','在教育公平方面，我们仍有很长的路要走。'],
+  ['Trong khi, đồng thời','在……的同时','在享受科技便利的同时，也要警惕它带来的风险。'],
+  ['Cùng với sự phát triển, phổ cập, nâng cao','随着……的发展/普及/提高','随着互联网的普及，信息传播的速度大大加快。'],
+  ['Một mặt, mặt khác','一方面……，另一方面……','一方面要鼓励创新，另一方面要完善相关法律。'],
+  ['Càng càng','越……越……','社会越发展，人们对精神生活的要求就越高。'],
+  ['Tùy thuộc vào, nằm ở','取决于 / 在于','问题的关键在于如何平衡发展与保护。']
+ ]},
+ {name:'Bị động, nhấn mạnh, trang trọng', items:[
+  ['Bị động trang trọng','被……所…… / 受到……','这项技术已被广泛应用于医疗领域。'],
+  ['Coi là, xem như','把……视为/看作/称为……','许多人把健康视为最宝贵的财富。'],
+  ['Lấy làm','以……为……','教育应当以学生的全面发展为目标。'],
+  ['Tiến hành (đi với động từ hai âm tiết, không mang tân ngữ)','对……加以/予以……','对这种现象应当加以引导。'],
+  ['Câu hỏi tu từ nhấn mạnh','难道……吗？/ 何尝不……','难道我们可以对环境污染视而不见吗？'],
+  ['Ngay cả cũng','连……都……','如今连老年人都离不开智能手机。'],
+  ['Không gì bằng, không gì hơn','……莫过于……','最大的挑战莫过于如何保持理性。'],
+  ['Khó tránh khỏi','难免 / 不免','缺乏沟通难免产生误会。']
+ ]}
+ ],
+ notes:'<h2>Lỗi thường gặp</h2><ul>'+
+  '<li><b class="han">尽管……却</b>: 却 phải đứng sau chủ ngữ của vế sau, không đứng đầu câu. Không dùng 因为 trong cặp này.</li>'+
+  '<li><b class="han">无论</b>: sau 无论 phải có từ nghi vấn (如何, 什么, 谁) hoặc cặp lựa chọn (A 还是 B). Không nói 无论天气好，都……</li>'+
+  '<li><b class="han">只有……才 và 只要……就</b>: 只有 là điều kiện cần duy nhất, 只要 là điều kiện đủ. Chọn sai sẽ làm lệch ý lập luận.</li>'+
+  '<li><b class="han">与其……不如</b>: vế sau luôn là phương án tốt hơn, không đảo ngược.</li>'+
+  '<li><b class="han">加以</b>: chỉ đi với động từ hai âm tiết (加以控制, 加以保护), không đi với động từ một âm tiết hoặc có tân ngữ phía sau.</li>'+
+  '<li><b class="han">不仅……而且</b>: nếu hai vế có chủ ngữ khác nhau thì 不仅 đứng trước chủ ngữ của vế đầu.</li>'+
+  '<li>Không lạm dụng: mỗi đoạn dùng 1 đến 2 cấu trúc phức là đủ.</li></ul>'+
+  '<h2>Đoạn mẫu kết hợp nhiều cấu trúc</h2>'+
+  '<p class="sample">随着互联网的普及，短视频已成为人们获取信息的重要渠道。它固然丰富了人们的业余生活，但也带来了不容忽视的问题：不少人不仅沉迷其中，甚至影响了正常的工作与学习。就个人而言，与其被动地接受海量信息，不如主动选择有价值的内容；就社会而言，只有加强监管，才能营造健康的网络环境。</p>'+
+  '<h2>Cách học</h2><ol><li>Mỗi ngày học 3 đến 4 cấu trúc, đặt 2 câu cho mỗi cấu trúc về một chủ đề xã hội.</li><li>Ưu tiên nhóm 1 và nhóm 2 vì xuất hiện nhiều nhất.</li><li>Cuối tuần, viết một đoạn khoảng 100 chữ dùng ít nhất 5 cấu trúc đã học.</li></ol>'
+},
+frames:{
+ slug:'khung-cau', title:'Khung câu theo vị trí', unit:'khung câu', keyLabel:'Mục đích',
+ groups:[
+ {name:'1. Mở bài', items:[
+  ['Nêu hiện tượng','随着……的发展/普及，……已成为……','随着互联网的普及，网络购物已成为人们生活中不可或缺的一部分。'],
+  ['Nêu hiện tượng','近年来，……现象日益普遍，引起了社会的广泛关注。','近年来，“低头族”现象日益普遍，引起了社会的广泛关注。'],
+  ['Nêu hiện tượng','当今社会，……备受关注。','当今社会，青少年的心理健康备受关注。'],
+  ['Nêu tranh luận','关于……，人们的看法不一。有人认为……，也有人认为……','关于孩子该不该早学英语，人们的看法不一。'],
+  ['Nêu tranh luận','对于……这一问题，可谓见仁见智。','对于“年轻人该不该先工作后买房”这一问题，可谓见仁见智。'],
+  ['Dẫn tục ngữ','俗话说，“……”。','俗话说，“防患于未然”，环境保护尤其如此。'],
+  ['Nêu quan điểm','在我看来 / 笔者认为，……','在我看来，网络教育利大于弊。'],
+  ['Nêu quan điểm','我认为，……，理由如下。','我认为应该鼓励青年创业，理由如下。']
+ ]},
+ {name:'2. Nêu nguyên nhân', items:[
+  ['Mở đoạn nguyên nhân','究其原因，主要有以下几点。','究其原因，主要有以下几点。'],
+  ['Mở đoạn nguyên nhân','造成这一现象的原因是多方面的。','造成这一现象的原因是多方面的。'],
+  ['Liệt kê','首先……；其次……；此外……；最后……','首先，生活节奏加快；其次，网络信息泛滥；此外，监管不到位。'],
+  ['Nhấn mạnh gốc rễ','这在很大程度上源于……','这在很大程度上源于教育资源分配不均。'],
+  ['Nhấn mạnh gốc rễ','归根结底，……','归根结底，这是观念问题。'],
+  ['Giải thích','之所以……，是因为……','之所以出现这种现象，是因为竞争压力太大。']
+ ]},
+ {name:'3. Nêu tác động', items:[
+  ['Tác động chung','这一现象对……产生了深远的影响。','这一现象对青少年的成长产生了深远的影响。'],
+  ['Hai mặt','一方面……，另一方面……','一方面它方便了生活，另一方面也加剧了互相比较的风气。'],
+  ['Hậu quả lâu dài','长此以往，……','长此以往，人们将逐渐丧失独立思考的能力。'],
+  ['Hậu quả lâu dài','久而久之，……','久而久之，人们会对手机产生依赖。'],
+  ['Cảnh báo','其危害不容忽视。','过度熬夜对健康的危害不容忽视。'],
+  ['Tăng tiến','不仅……，而且……','它不仅影响个人健康，而且影响社会风气。']
+ ]},
+ {name:'4. Dẫn chứng và minh họa', items:[
+  ['Số liệu','据统计/调查显示，……','据调查显示，超过八成的青少年每天使用手机。'],
+  ['Số liệu','有研究表明，……','有研究表明，睡眠不足会降低学习效率。'],
+  ['Ví dụ','以……为例，……','以共享单车为例，它方便了短途出行。'],
+  ['Ví dụ','例如/譬如……','例如，不少城市已经实行垃圾分类。'],
+  ['Suy luận','不难发现/不难看出，……','不难发现，很多人都有这样的经历。'],
+  ['Suy luận','事实证明，……','事实证明，及时沟通能减少误会。'],
+  ['Trích lời','正如……所说，……','正如俗话所说，“一分耐心一分收获”。']
+ ]},
+ {name:'5. Chuyển ý và liên kết đoạn', items:[
+  ['Bổ sung','与此同时，……','与此同时，相关法律法规也需要完善。'],
+  ['Lưu ý','值得注意的是/需要指出的是，……','值得注意的是，这一现象在城市中尤为突出。'],
+  ['Tăng tiến','不仅如此，……','不仅如此，它还影响了人们的人际关系。'],
+  ['Nhượng bộ','诚然……，但……','诚然，科技带来了便利，但也不能忽视其副作用。'],
+  ['Đối lập','然而，事物都有两面性。','然而，事物都有两面性，网络也不例外。'],
+  ['Đổi góc nhìn','换个角度来看，……','换个角度来看，压力也是前进的动力。'],
+  ['Tổng kết đoạn','由此可见，……','由此可见，教育的公平至关重要。'],
+  ['Chuyển sang giải pháp','那么，我们该如何应对呢？','那么，我们该如何应对这一挑战呢？']
+ ]},
+ {name:'6. Đề xuất giải pháp', items:[
+  ['Mở đoạn','为了解决这一问题，我们应当从以下几方面入手。','为了解决这一问题，我们应当从以下几方面入手。'],
+  ['Phân vai','首先，政府应当……；其次，学校/企业应该……；最后，个人要……','首先，政府应当加强监管；其次，学校应该开展相关教育；最后，个人要增强自律意识。'],
+  ['Hành động','有关部门应加强/完善/加大……力度。','有关部门应加大执法力度。'],
+  ['Hành động','应当引导/鼓励/倡导……','应当引导青少年合理使用网络。'],
+  ['Điều kiện','只有……，才能……','只有全社会共同努力，才能从根本上解决这一问题。'],
+  ['Từ gốc','从根本上看，……','从根本上看，提高全民素质才是关键。']
+ ]},
+ {name:'7. Kết bài', items:[
+  ['Tổng kết','综上所述/总而言之，……','综上所述，网络教育利大于弊。'],
+  ['Tổng kết','总的来说，……的关键在于……','总的来说，解决这一问题的关键在于提高人们的意识。'],
+  ['Khẳng định lại','由此可见，……','由此可见，诚信是立身之本。'],
+  ['Kêu gọi','让我们携手努力，……','让我们携手努力，共同建设美好的环境。'],
+  ['Kêu gọi','让我们从现在做起，从自身做起。','让我们从现在做起，从自身做起。'],
+  ['Tin tưởng','相信只要……，就一定能……','相信只要大家共同努力，就一定能解决这一难题。'],
+  ['Nhìn về tương lai','展望未来，……','展望未来，我们有理由对环境保护充满信心。']
+ ]}
+ ],
+ notes:'<h2>Bố cục bài mẫu 4 đoạn</h2><ol>'+
+  '<li><b>Mở bài:</b> nêu hiện tượng (<span class="han">随着……</span>), nêu tranh luận (<span class="han">关于……看法不一</span>), rồi nêu quan điểm (<span class="han">在我看来……</span>).</li>'+
+  '<li><b>Đoạn 2, nguyên nhân và tác động:</b> <span class="han">究其原因……首先……其次……</span>; <span class="han">这一现象对……产生了影响，据统计……</span></li>'+
+  '<li><b>Đoạn 3, chuyển ý và giải pháp:</b> <span class="han">诚然……，但……。那么，我们该如何应对呢？首先……其次……最后……</span></li>'+
+  '<li><b>Kết bài:</b> <span class="han">综上所述……，让我们携手努力……</span></li></ol>'+
+  '<h2>Lưu ý</h2><ul>'+
+  '<li>Không dùng cùng một khung ở hai đoạn. Mở bài đã dùng <span class="han">随着……</span> thì thân bài đổi sang <span class="han">近年来……</span>.</li>'+
+  '<li><span class="han">首先/其次/最后</span> chỉ nên dùng cho một danh sách trong bài, không dùng cho cả nguyên nhân lẫn giải pháp.</li>'+
+  '<li>Kết bài phải khớp với quan điểm đã nêu ở mở bài, không thêm ý kiến mới.</li>'+
+  '<li>Tránh <span class="han">我觉得</span> và <span class="han">总之</span>, thay bằng <span class="han">我认为</span> và <span class="han">综上所述</span>.</li></ul>'
+}
+};
+var ORDER=['vocab','grammar','frames','review'];
+var TABNAMES={vocab:'Từ vựng 书面语',grammar:'Ngữ pháp',frames:'Khung câu',review:'Ôn tập thẻ nhớ'};
+
+/* ---------- STATE ---------- */
+var known={}; try{ known=JSON.parse(localStorage.getItem('hsk6-known')||'{}'); }catch(e){ known={}; }
+function save(){ try{ localStorage.setItem('hsk6-known',JSON.stringify(known)); }catch(e){} }
+var S={tab:'vocab',group:-1,q:'',hide:false,onlyTodo:false,fcDeck:'vocab',fcIdx:0,fcFlip:false,fcList:[]};
+
+function allItems(deckKey){
+  var d=DECKS[deckKey],out=[];
+  d.groups.forEach(function(g,gi){ g.items.forEach(function(it,ii){ out.push({deck:deckKey,gi:gi,ii:ii,id:deckKey+':'+gi+':'+ii,it:it}); }); });
+  return out;
+}
+function countKnown(deckKey){ var a=allItems(deckKey); return {n:a.filter(function(x){return known[x.id];}).length,t:a.length}; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ---------- RENDER ---------- */
+var app=document.getElementById('app'), tabs=document.getElementById('tabs');
+function renderTabs(){
+  tabs.innerHTML=ORDER.map(function(k){
+    return '<button role="tab" id="t-'+k+'" aria-selected="'+(S.tab===k)+'" data-tab="'+k+'">'+TABNAMES[k]+'</button>';
+  }).join('');
+}
+function slugFor(k){ return k==='review'?'on-tap':DECKS[k].slug; }
+function setTab(k,push){
+  S.tab=k; S.group=-1; S.q=''; renderTabs(); render();
+  if(push!==false){ try{ location.hash=slugFor(k); }catch(e){} }
+  window.scrollTo(0,0);
+}
+function cardHtml(x,deckKey){
+  var it=x.it, isV=deckKey==='vocab', done=!!known[x.id];
+  var key=isV?'<span class="zh">'+esc(it[0])+'</span><span class="arr">→</span>':esc(it[0]);
+  var main=isV?it[1]:it[1];
+  var sub=isV?it[2]:'';
+  var ex=isV?it[3]:it[2];
+  return '<article class="card'+(done?' done':'')+'" data-id="'+x.id+'" tabindex="0">'+
+    '<button class="chk" aria-label="Đánh dấu đã thuộc" aria-pressed="'+done+'" data-chk="'+x.id+'">✓</button>'+
+    '<div class="k">'+key+'</div>'+
+    '<div class="w rev">'+esc(main)+'</div>'+
+    (sub?'<div class="m rev">'+esc(sub)+'</div>':'')+
+    '<div class="ex rev">'+esc(ex)+'</div></article>';
+}
+function render(){
+  if(S.tab==='review'){ renderReview(); return; }
+  var k=S.tab, d=DECKS[k], c=countKnown(k);
+  var chips='<button class="chip" aria-pressed="'+(S.group===-1)+'" data-g="-1">Tất cả</button>'+
+    d.groups.map(function(g,i){return '<button class="chip" aria-pressed="'+(S.group===i)+'" data-g="'+i+'">'+esc(g.name)+'</button>';}).join('');
+  var q=S.q.trim().toLowerCase();
+  var list=allItems(k).filter(function(x){
+    if(S.group!==-1 && x.gi!==S.group) return false;
+    if(S.onlyTodo && known[x.id]) return false;
+    if(q && x.it.join(' ').toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  var html='<div class="bar">'+
+    '<input class="search" id="q" type="search" placeholder="Tìm theo chữ Hán hoặc tiếng Việt" value="'+esc(S.q)+'" aria-label="Tìm kiếm">'+
+    '<label class="tog" for="hide"><input type="checkbox" id="hide"'+(S.hide?' checked':'')+'>Che đáp án để tự kiểm tra</label>'+
+    '<label class="tog" for="todo"><input type="checkbox" id="todo"'+(S.onlyTodo?' checked':'')+'>Chỉ hiện chưa thuộc</label></div>'+
+    '<div class="chips">'+chips+'</div>'+
+    '<div class="prog">Đã thuộc <b>'+c.n+'</b> / '+c.t+' '+d.unit+'<div class="bartrack"><i style="width:'+(c.t?Math.round(c.n/c.t*100):0)+'%"></i></div></div>'+
+    (S.hide?'<div class="prog">Chạm vào thẻ để hiện đáp án.</div>':'');
+  if(!list.length){ html+='<div class="empty">Không có mục nào khớp.</div>'; }
+  else{
+    // group headings when showing all groups
+    html+='<div class="'+(S.hide?'hide ':'')+'grid" id="grid">'+list.map(function(x){return cardHtml(x,k);}).join('')+'</div>';
+  }
+  html+='<section class="notes">'+d.notes+'</section>';
+  app.innerHTML=html;
+  var qi=document.getElementById('q'); if(S.q){ qi.focus(); qi.setSelectionRange(S.q.length,S.q.length); }
+}
+function buildFc(){
+  var d=S.fcDeck; S.fcList=allItems(d).filter(function(x){return !known[x.id];});
+  if(!S.fcList.length) S.fcList=allItems(d);
+  S.fcIdx=0; S.fcFlip=false;
+}
+function renderReview(){
+  if(!S.fcList.length) buildFc();
+  var decks=['vocab','grammar','frames'].map(function(k){
+    return '<button class="chip" aria-pressed="'+(S.fcDeck===k)+'" data-deck="'+k+'">'+DECKS[k].title+'</button>';
+  }).join('');
+  var x=S.fcList[S.fcIdx], it=x.it, isV=S.fcDeck==='vocab', d=DECKS[S.fcDeck];
+  var front=esc(it[0]);
+  var back='<div class="lab">Đáp án</div><div class="big">'+esc(it[1])+'</div>'+(isV?'<div class="m">'+esc(it[2])+'</div>':'')+'<div class="ex">'+esc(isV?it[3]:it[2])+'</div>';
+  var face=S.fcFlip?back:'<div class="lab">'+d.keyLabel+'</div><div class="front">'+front+'</div><div class="hint">Chạm vào thẻ để lật</div>';
+  app.innerHTML='<div class="fc"><div class="decks">'+decks+'</div>'+
+    '<div class="count">Thẻ '+(S.fcIdx+1)+' / '+S.fcList.length+' (chưa thuộc trước)</div>'+
+    '<div class="fcard'+(isV&&!S.fcFlip?' vocabfront':'')+'" id="fcard" tabindex="0" role="button" aria-label="Lật thẻ">'+face+'</div>'+
+    '<div class="fcrow"><button class="btn" data-fc="prev">Trước</button>'+
+    '<button class="btn" data-fc="again">Chưa thuộc</button>'+
+    '<button class="btn pri" data-fc="got">Đã thuộc</button>'+
+    '<button class="btn" data-fc="next">Sau</button>'+
+    '<button class="btn" data-fc="shuffle">Xáo trộn</button></div>'+
+    '<div class="prog" style="text-align:center;margin-top:14px">Phím tắt: Space lật thẻ, mũi tên trái phải chuyển thẻ</div></div>';
+}
+function fcMove(n){ var L=S.fcList.length; S.fcIdx=(S.fcIdx+n+L)%L; S.fcFlip=false; renderReview(); }
+
+/* ---------- EVENTS ---------- */
+tabs.addEventListener('click',function(e){ var b=e.target.closest('[data-tab]'); if(b) setTab(b.dataset.tab); });
+app.addEventListener('click',function(e){
+  var t=e.target;
+  var chk=t.closest('[data-chk]');
+  if(chk){ var id=chk.dataset.chk; if(known[id]) delete known[id]; else known[id]=1; save(); render(); e.stopPropagation(); return; }
+  var g=t.closest('[data-g]'); if(g){ S.group=+g.dataset.g; render(); return; }
+  var dk=t.closest('[data-deck]'); if(dk){ S.fcDeck=dk.dataset.deck; buildFc(); renderReview(); return; }
+  var fc=t.closest('[data-fc]');
+  if(fc){
+    var a=fc.dataset.fc, cur=S.fcList[S.fcIdx];
+    if(a==='prev') fcMove(-1);
+    else if(a==='next') fcMove(1);
+    else if(a==='got'){ known[cur.id]=1; save(); fcMove(1); }
+    else if(a==='again'){ delete known[cur.id]; save(); fcMove(1); }
+    else if(a==='shuffle'){ S.fcList.sort(function(){return Math.random()-0.5;}); S.fcIdx=0; S.fcFlip=false; renderReview(); }
+    return;
+  }
+  if(t.closest('#fcard')){ S.fcFlip=!S.fcFlip; renderReview(); return; }
+  var card=t.closest('.card'); if(card && S.hide){ card.classList.toggle('shown'); }
+});
+app.addEventListener('input',function(e){
+  if(e.target.id==='q'){ S.q=e.target.value; render(); }
+});
+app.addEventListener('change',function(e){
+  if(e.target.id==='hide'){ S.hide=e.target.checked; render(); }
+  if(e.target.id==='todo'){ S.onlyTodo=e.target.checked; render(); }
+});
+document.addEventListener('keydown',function(e){
+  if(S.tab!=='review') return;
+  if(e.target && e.target.tagName==='INPUT') return;
+  if(e.key===' '){ e.preventDefault(); S.fcFlip=!S.fcFlip; renderReview(); }
+  else if(e.key==='ArrowRight') fcMove(1);
+  else if(e.key==='ArrowLeft') fcMove(-1);
+});
+function fromHash(){
+  var h=(location.hash||'').replace('#',''), found=null;
+  ORDER.forEach(function(k){ if(slugFor(k)===h) found=k; });
+  return found;
+}
+window.addEventListener('hashchange',function(){ var k=fromHash(); if(k && k!==S.tab) setTab(k,false); });
+S.tab=fromHash()||'vocab'; renderTabs(); render();
+</script>
+</body>
+</html>
