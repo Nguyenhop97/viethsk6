@@ -6,15 +6,15 @@
 <title>HSK 6 Nghị luận xã hội</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* Layout: sticky header with 4 tabs, filter bar, card grid; flashcard mode in the 4th tab. */
 :root{
   --bg:#fff5f4; --surface:#ffffff; --ink:#3a0f12; --muted:#8a5558; --line:#f6d2d0;
   --accent:#c4161c; --accent-soft:#fde3e1; --gold:#a15c07; --gold-soft:#fdf0d5; --ok:#15803d;
   --head:#7a0f14; --headtext:#fff; --headmuted:#f6c3c0;
-  --font-body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --font-han:'Noto Serif SC','Songti SC','SimSun',serif;
+  --font-body:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --font-han:'Noto Sans SC','PingFang SC','Microsoft YaHei','Heiti SC',sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,7 +32,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.55;font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6;font-size:17px}
 .han,.w,.ex,.k .zh{font-family:var(--font-han)}
 header{background:var(--head);color:var(--headtext);padding:20px 16px 0}
 .wrap{max-width:980px;margin:0 auto}
@@ -62,13 +62,13 @@ main{padding:16px}
 .k{font-size:.82rem;color:var(--muted);display:flex;gap:8px;align-items:center;padding-right:34px}
 .k .zh{font-size:1.15rem;color:var(--gold);background:var(--gold-soft);border-radius:8px;padding:0 10px}
 .k .arr{color:var(--muted)}
-.w{font-size:1.3rem;font-weight:700;line-height:1.4}
+.w{font-size:1.25rem;font-weight:600;line-height:1.4}
 .m{font-size:.88rem;color:var(--muted)}
-.ex{font-size:1rem;border-left:3px solid var(--accent);padding-left:10px;margin-top:2px;line-height:1.6}
+.ex{font-size:1.05rem;border-left:3px solid var(--accent);padding-left:10px;margin-top:2px;line-height:1.6}
 .chk{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;color:transparent;font-size:.9rem;padding:0}
 .chk[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.hide .card:not(.shown) .rev{filter:blur(8px);user-select:none}
-.hide .card:not(.shown){cursor:pointer}
+.hide .card:not(.shown) .rev,.hide .row:not(.shown) .rev{filter:blur(8px);user-select:none}
+.hide .card:not(.shown),.hide .row:not(.shown){cursor:pointer}
 .notes{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 18px 14px}
 .notes h2{font-size:1.05rem;margin:14px 0 6px}
 .notes ul,.notes ol{margin:0;padding-left:20px}
@@ -85,7 +85,7 @@ main{padding:16px}
 .fc{max-width:560px;margin:0 auto}
 .fcard{min-height:260px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:center;cursor:pointer;user-select:none}
 .fcard .lab{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.fcard .big{font-family:var(--font-han);font-size:1.7rem;font-weight:700;line-height:1.45;text-wrap:balance}
+.fcard .big{font-family:var(--font-han);font-size:1.6rem;font-weight:600;line-height:1.45;text-wrap:balance}
 .fcard .front{font-size:1.4rem;font-weight:600;line-height:1.5}
 .fcard.vocabfront .front{font-family:var(--font-han);font-size:2.4rem}
 .fcard .ex{text-align:left;display:inline-block;align-self:center}
@@ -97,6 +97,19 @@ main{padding:16px}
 .count{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:10px}
 @media (max-width:560px){.pair{grid-template-columns:1fr}.w{font-size:1.2rem}}
 @media (prefers-reduced-motion:no-preference){.card,.chip,.btn{transition:background .15s,border-color .15s}}
+.tr{font-size:.92rem;color:var(--muted);margin-top:2px}
+.gh{font-size:1.05rem;margin:24px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--line);color:var(--accent)}
+.lst{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.row{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 52px 12px 16px;display:flex;flex-direction:column;gap:4px}
+.row.done{border-color:var(--accent);background:linear-gradient(0deg,var(--accent-soft),var(--accent-soft)),var(--surface)}
+.row .cue{align-self:flex-start;background:var(--gold-soft);color:var(--gold);border-radius:8px;padding:0 10px;font-size:.85rem;font-weight:600}
+.row .cue.long{background:none;color:var(--ink);padding:0;font-size:1rem;font-weight:600}
+.row .pat{font-family:var(--font-han);font-size:1.2rem;font-weight:600;line-height:1.5}
+.row .pm{color:var(--muted);font-size:.95rem}
+.row .chk{top:12px;right:12px}
+.pair .vi{display:block;color:var(--muted);font-size:.88rem;margin-top:4px;font-family:var(--font-body)}
+.trs{color:var(--muted);font-size:.92rem;margin:6px 0 0}
+.fcard .tr{font-size:.95rem}
 </style>
 </head>
 <body>
@@ -217,8 +230,8 @@ vocab:{
   '<li><b class="han">均, 皆, 亦</b> rất trang trọng. Dùng vừa phải, 1 đến 2 lần mỗi bài.</li>'+
   '<li><b class="han">使, 令</b> thường có chủ ngữ là sự việc, không phải người. Ví dụ: 此举令人担忧.</li></ul>'+
   '<h2>Chuyển đổi cả câu</h2>'+
-  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">我觉得网上学习有很多好处，但是也有缺点，很多人马上就不想学了。</span></div><div class="b"><small>Văn viết</small><span class="han">我认为网络学习具有诸多优势，然而也存在一些弊端，不少学习者因此很快便选择了放弃。</span></div></div>'+
-  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">现在的年轻人压力特别大，所以问题越来越多。</span></div><div class="b"><small>Văn viết</small><span class="han">当代青年面临着巨大的压力，由此引发的心理问题日益增多。</span></div></div>'+
+  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">我觉得网上学习有很多好处，但是也有缺点，很多人马上就不想学了。</span><span class="vi">Tôi thấy học trực tuyến có nhiều lợi ích, nhưng cũng có nhược điểm, nhiều người lập tức không muốn học nữa.</span></div><div class="b"><small>Văn viết</small><span class="han">我认为网络学习具有诸多优势，然而也存在一些弊端，不少学习者因此很快便选择了放弃。</span><span class="vi">Tôi cho rằng học trực tuyến có nhiều ưu thế, tuy nhiên cũng tồn tại một số hạn chế, không ít người học vì vậy rất nhanh đã chọn bỏ cuộc.</span></div></div>'+
+  '<div class="pair"><div class="a"><small>Khẩu ngữ</small><span class="han">现在的年轻人压力特别大，所以问题越来越多。</span><span class="vi">Người trẻ bây giờ áp lực đặc biệt lớn, nên vấn đề ngày càng nhiều.</span></div><div class="b"><small>Văn viết</small><span class="han">当代青年面临着巨大的压力，由此引发的心理问题日益增多。</span><span class="vi">Thanh niên đương đại đối mặt với áp lực to lớn, các vấn đề tâm lý do đó phát sinh ngày càng nhiều.</span></div></div>'+
   '<h2>Cách học</h2><ol><li>Mỗi ngày học 10 đến 15 cặp từ và tự đặt một câu cho mỗi cặp.</li><li>Học trước nhóm Danh từ và Liên từ vì tần suất cao nhất.</li><li>Cuối tuần, viết lại một đoạn khẩu ngữ ngắn thành văn viết để kiểm tra.</li></ol>'
 },
 grammar:{
@@ -283,6 +296,7 @@ grammar:{
   '<li>Không lạm dụng: mỗi đoạn dùng 1 đến 2 cấu trúc phức là đủ.</li></ul>'+
   '<h2>Đoạn mẫu kết hợp nhiều cấu trúc</h2>'+
   '<p class="sample">随着互联网的普及，短视频已成为人们获取信息的重要渠道。它固然丰富了人们的业余生活，但也带来了不容忽视的问题：不少人不仅沉迷其中，甚至影响了正常的工作与学习。就个人而言，与其被动地接受海量信息，不如主动选择有价值的内容；就社会而言，只有加强监管，才能营造健康的网络环境。</p>'+
+  '<p class="trs">Cùng với sự phổ cập của internet, video ngắn đã trở thành kênh quan trọng để mọi người tiếp nhận thông tin. Nó quả thật làm phong phú đời sống giải trí, nhưng cũng kéo theo những vấn đề không thể xem nhẹ: không ít người không chỉ đắm chìm trong đó mà thậm chí còn ảnh hưởng đến công việc và học tập bình thường. Xét về cá nhân, thay vì tiếp nhận thụ động lượng thông tin khổng lồ, chi bằng chủ động chọn nội dung có giá trị; xét về xã hội, chỉ có tăng cường giám sát mới tạo dựng được môi trường mạng lành mạnh.</p>'+
   '<h2>Cách học</h2><ol><li>Mỗi ngày học 3 đến 4 cấu trúc, đặt 2 câu cho mỗi cấu trúc về một chủ đề xã hội.</li><li>Ưu tiên nhóm 1 và nhóm 2 vì xuất hiện nhiều nhất.</li><li>Cuối tuần, viết một đoạn khoảng 100 chữ dùng ít nhất 5 cấu trúc đã học.</li></ol>'
 },
 frames:{
@@ -363,6 +377,17 @@ frames:{
   '<li>Tránh <span class="han">我觉得</span> và <span class="han">总之</span>, thay bằng <span class="han">我认为</span> và <span class="han">综上所述</span>.</li></ul>'
 }
 };
+/* Vietnamese translations, aligned to the item order of each deck (fm = meaning of each frame) */
+var VI={"vocab":["Nhiều người cho rằng giáo dục trực tuyến lợi nhiều hơn hại.","Chuyên gia chỉ ra rằng phụ thuộc quá mức vào điện thoại sẽ ảnh hưởng đến giấc ngủ.","Tiến bộ công nghệ khiến cuộc sống thuận tiện hơn.","Đọc sách giúp mở rộng tầm nhìn.","Chúng ta nên sử dụng mạng xã hội một cách hợp lý.","Ngày càng nhiều người nhận thức được tầm quan trọng của bảo vệ môi trường.","Chính phủ đã triển khai một loạt công tác xóa đói giảm nghèo.","Việc đi làm đường xa tiêu tốn rất nhiều thời gian.","Chính sách này đã đạt được hiệu quả rõ rệt.","Người trẻ thường tìm kiếm cách làm việc tự do hơn.","Quan niệm tiêu dùng của mọi người đã có sự chuyển biến.","Phụ huynh lo ngại con cái nghiện internet.","Mọi người khao khát được hưởng dịch vụ y tế tốt hơn.","Mô hình này có giá trị để nhân rộng.","Hiện tượng này được gọi là “kén thông tin”.","Doanh nghiệp ngày càng coi trọng sức khỏe thể chất và tinh thần của nhân viên.","Cần kịp thời hóa giải các mâu thuẫn xã hội.","So với trước đây, áp lực của người hiện đại rõ ràng tăng lên.","Công nghệ mang lại sự tiện lợi, tuy nhiên cũng kéo theo những mối nguy tiềm ẩn.","Do dân số già hóa, vấn đề chăm sóc người cao tuổi ngày càng nổi cộm.","Trình độ giáo dục nâng cao, từ đó thúc đẩy xã hội tiến bộ.","Nếu không kiểm soát, ô nhiễm sẽ trở nên tồi tệ hơn.","Mặc dù hiệu quả rõ rệt, vấn đề vẫn còn tồn tại.","Ngoài ra, chính phủ cũng cần tăng cường giám sát.","Thí điểm trước, sau đó nhân rộng trên toàn quốc.","Lấy xe đạp công cộng làm ví dụ, nó giúp việc di chuyển quãng ngắn thuận tiện.","Trên thực tế, tiết kiệm không có nghĩa là keo kiệt.","Nói chung, đầu tư cho giáo dục có tương quan thuận với phát triển kinh tế.","Chỉ có toàn xã hội cùng nỗ lực mới giải quyết được vấn đề này.","Gọi là “song giảm”, tức là giảm gánh nặng bài tập và gánh nặng học thêm ngoài trường cho học sinh.","Tóm lại, lợi nhiều hơn hại.","Chế độ này tồn tại không ít mặt hạn chế.","Vận động rất có lợi cho sức khỏe thể chất và tinh thần.","Tác hại của hút thuốc không thể xem nhẹ.","Nguy cơ về an toàn thực phẩm đã thu hút sự quan tâm rộng rãi.","Chính phủ đã ban hành nhiều biện pháp để giảm ùn tắc giao thông.","Gốc rễ của chênh lệch giàu nghèo nằm ở việc phân bổ nguồn lực không đồng đều.","Coi nhẹ bảo vệ môi trường sẽ dẫn đến hậu quả nghiêm trọng.","Mua sắm trực tuyến đã gây tác động lớn đến các cửa hàng truyền thống.","Thế hệ này mang đặc trưng thời đại rõ nét.","Cộng đồng dân cư đang phát huy chức năng phục vụ quan trọng.","Quan niệm truyền thống đang lặng lẽ thay đổi.","Cải thiện hiện trạng y tế nông thôn là việc cấp bách.","Hiện tượng này đặc biệt phổ biến ở thành thị.","Giáo dục cần được đầu tư vốn liên tục.","Trí tuệ nhân tạo sẽ thay thế một số vị trí việc làm.","Công chúng phản ứng mạnh mẽ về việc này.","Cần quan tâm chăm sóc người cao tuổi sống một mình.","Sức khỏe tâm lý của thanh thiếu niên đáng được quan tâm.","Việc lên mạng của người chưa thành niên cần được hướng dẫn.","Nguồn lực giáo dục ở vùng sâu vùng xa tương đối thiếu thốn.","Cuộc cải cách này có ý nghĩa trọng đại.","Những thay đổi nhỏ bé cũng có thể tạo ra ảnh hưởng.","Nhiều yếu tố cùng dẫn đến kết quả này.","Số người sẵn lòng làm trong ngành này rất ít ỏi.","Thói quen tốt cần được bồi dưỡng lâu dài.","Thói quen xấu sẽ ảnh hưởng đến sức khỏe.","Tiến trình đô thị hóa tiến triển nhanh chóng.","Kinh tế nông thôn phát triển tương đối chậm.","Đây là một nhiệm vụ gian khổ.","Thông tin dễ lan truyền, cũng dễ bị sai lệch.","Chữ tín là nền tảng không thể thiếu để xã hội vận hành.","Tình hình việc làm vô cùng nghiêm trọng.","Các ngành công nghiệp mới nổi đã thúc đẩy việc làm.","Quan niệm cũ kỹ đã cản trở sự phát triển.","Vấn đề này vô cùng phức tạp.","Đặc biệt là người trẻ, càng dễ bị ảnh hưởng.","Vấn đề môi trường ngày càng nghiêm trọng.","Phát hiện vấn đề cần xử lý kịp thời.","Chúng ta luôn kiên trì phát triển bền vững.","Đằng sau sự tiện lợi thường ẩn chứa rủi ro.","Giáo dục luôn là gốc rễ của sự phát triển quốc gia.","Mọi người dần dần nhận ra tầm quan trọng của sức khỏe.","Nhu cầu đột ngột tăng lên.","Chỉ dựa vào sức của cá nhân là chưa đủ.","Các chỉ tiêu đều có mức tăng.","Chủ đề này một lần nữa gây tranh luận sôi nổi.","Khoảng ba phần mười người được hỏi bày tỏ sự đồng tình.","Cách làm này gần như là lãng phí.","Không cải cách, tất yếu sẽ bị thời đại đào thải.","Xu hướng này có lẽ sẽ tiếp tục.","Giải quyết triệt để vấn đề cần có thời gian."],
+"grammar":["Mua sắm trực tuyến quả thật tiện lợi, nhưng cũng tồn tại nhiều nguy cơ.","Mặc dù khoa học công nghệ phát triển nhanh chóng, cảm giác hạnh phúc của con người lại chưa chắc tăng theo.","Dù điều kiện có hạn, chúng ta vẫn nên kiên trì bảo vệ môi trường.","Thay vì than phiền môi trường xấu đi, chi bằng bắt đầu từ chính bản thân.","Thà tốn thêm chút thời gian, cũng không thể coi nhẹ chất lượng sản phẩm.","Mấu chốt của vấn đề không phải là công nghệ, mà là cách con người sử dụng.","Nói đây là vấn đề kỹ thuật, chi bằng nói là vấn đề quan niệm.","Ngược lại, nếu thiếu giám sát, thị trường dễ rơi vào hỗn loạn.","Dù xã hội phát triển thế nào, chữ tín vẫn là gốc của việc lập thân.","Chỉ có tăng cường giám sát mới đảm bảo được an toàn thực phẩm.","Chỉ cần kiên trì tập luyện là có thể tăng cường thể chất.","Trừ phi toàn xã hội cùng coi trọng, nếu không vấn đề này khó mà giải quyết tận gốc.","Một khi đã hình thành thói quen phụ thuộc điện thoại thì rất khó thay đổi.","Sở dĩ xuất hiện hiện tượng này là vì nguồn lực giáo dục phân bổ không đồng đều.","Do dân số già hóa, vấn đề chăm sóc người cao tuổi ngày càng nổi cộm.","Internet không chỉ thay đổi cách giao tiếp mà còn thay đổi thói quen tiêu dùng.","Có người không chỉ không tuân thủ quy tắc mà thậm chí còn công khai phá hoại.","Bảo vệ quá mức không những không giúp được trẻ, ngược lại còn hạn chế sự trưởng thành của các em.","Người lớn còn khó tự kiềm chế, huống chi là trẻ con.","Áp lực công việc quá lớn, đến mức nhiều người gặp vấn đề sức khỏe.","Đặc biệt là người trẻ, càng dễ bị ảnh hưởng bởi thông tin trên mạng.","So với trước đây, áp lực cuộc sống của người hiện đại rõ ràng tăng lên.","Xét về cá nhân, học tập suốt đời có thể nâng cao năng lực cạnh tranh.","Nhìn từ góc độ lâu dài, bảo vệ môi trường lợi nhiều hơn hại.","Đối với thanh thiếu niên, thói quen tốt quan trọng hơn thành tích.","Thành tựu của một người ở mức độ rất lớn phụ thuộc vào thái độ của họ.","Về mặt công bằng giáo dục, chúng ta vẫn còn một chặng đường dài phải đi.","Trong khi tận hưởng sự tiện lợi của công nghệ, cũng cần cảnh giác với rủi ro nó mang lại.","Cùng với sự phổ cập của internet, tốc độ lan truyền thông tin tăng nhanh đáng kể.","Một mặt cần khuyến khích đổi mới, mặt khác cần hoàn thiện pháp luật liên quan.","Xã hội càng phát triển, yêu cầu của con người đối với đời sống tinh thần càng cao.","Mấu chốt của vấn đề nằm ở việc cân bằng giữa phát triển và bảo vệ.","Công nghệ này đã được ứng dụng rộng rãi trong lĩnh vực y tế.","Nhiều người coi sức khỏe là tài sản quý giá nhất.","Giáo dục nên lấy sự phát triển toàn diện của học sinh làm mục tiêu.","Đối với hiện tượng này cần có sự định hướng.","Chẳng lẽ chúng ta có thể làm ngơ trước ô nhiễm môi trường sao?","Ngày nay ngay cả người cao tuổi cũng không thể rời điện thoại thông minh.","Thách thức lớn nhất không gì bằng việc làm sao giữ được sự lý trí.","Thiếu giao tiếp khó tránh khỏi hiểu lầm."],
+"frames":["Cùng với sự phổ cập của internet, mua sắm trực tuyến đã trở thành một phần không thể thiếu trong đời sống.","Những năm gần đây, hiện tượng “người cúi đầu” (mải nhìn điện thoại) ngày càng phổ biến, thu hút sự quan tâm rộng rãi của xã hội.","Trong xã hội ngày nay, sức khỏe tâm lý của thanh thiếu niên rất được quan tâm.","Về việc trẻ có nên học tiếng Anh sớm hay không, mỗi người một ý.","Đối với vấn đề “người trẻ nên đi làm trước rồi mới mua nhà hay không”, có thể nói là mỗi người một cách nhìn.","Có câu tục ngữ: “phòng ngừa họa hoạn từ trước”, bảo vệ môi trường càng như thế.","Theo tôi, giáo dục trực tuyến lợi nhiều hơn hại.","Tôi cho rằng nên khuyến khích thanh niên khởi nghiệp, lý do như sau.","Xét nguyên nhân, chủ yếu có mấy điểm sau.","Nguyên nhân gây ra hiện tượng này có nhiều mặt.","Thứ nhất, nhịp sống nhanh hơn; thứ hai, thông tin mạng tràn lan; ngoài ra, giám sát chưa đến nơi đến chốn.","Điều này ở mức độ lớn bắt nguồn từ việc phân bổ nguồn lực giáo dục không đồng đều.","Suy cho cùng, đây là vấn đề quan niệm.","Sở dĩ xuất hiện hiện tượng này là vì áp lực cạnh tranh quá lớn.","Hiện tượng này đã tạo ra ảnh hưởng sâu rộng đến sự trưởng thành của thanh thiếu niên.","Một mặt nó làm cuộc sống thuận tiện, mặt khác cũng làm trầm trọng thêm thói so bì lẫn nhau.","Cứ thế mãi, con người sẽ dần mất đi khả năng suy nghĩ độc lập.","Lâu dần, con người sẽ sinh ra sự phụ thuộc vào điện thoại.","Tác hại của thức khuya quá mức đối với sức khỏe không thể xem nhẹ.","Nó không chỉ ảnh hưởng đến sức khỏe cá nhân mà còn ảnh hưởng đến phong khí xã hội.","Theo khảo sát, hơn 80% thanh thiếu niên dùng điện thoại mỗi ngày.","Có nghiên cứu cho thấy thiếu ngủ sẽ làm giảm hiệu quả học tập.","Lấy xe đạp công cộng làm ví dụ, nó giúp việc di chuyển quãng ngắn thuận tiện.","Ví dụ, không ít thành phố đã thực hiện phân loại rác.","Không khó để nhận ra, rất nhiều người đều có trải nghiệm như vậy.","Thực tế chứng minh, giao tiếp kịp thời có thể giảm hiểu lầm.","Đúng như câu tục ngữ nói, “một phần kiên nhẫn, một phần thu hoạch”.","Đồng thời, luật pháp và quy định liên quan cũng cần được hoàn thiện.","Đáng chú ý là hiện tượng này đặc biệt nổi bật ở thành thị.","Không chỉ vậy, nó còn ảnh hưởng đến các mối quan hệ giữa người với người.","Quả thật, công nghệ mang lại sự tiện lợi, nhưng cũng không thể bỏ qua tác dụng phụ của nó.","Tuy nhiên, sự vật đều có hai mặt, internet cũng không ngoại lệ.","Nhìn từ một góc độ khác, áp lực cũng là động lực tiến lên.","Từ đó có thể thấy, công bằng giáo dục là vô cùng quan trọng.","Vậy thì chúng ta nên ứng phó với thách thức này như thế nào?","Để giải quyết vấn đề này, chúng ta nên bắt tay từ mấy phương diện sau.","Trước hết, chính phủ cần tăng cường giám sát; tiếp đến, nhà trường nên triển khai giáo dục liên quan; cuối cùng, cá nhân cần nâng cao ý thức tự giác.","Các cơ quan liên quan cần tăng cường mức độ thực thi pháp luật.","Cần hướng dẫn thanh thiếu niên sử dụng internet hợp lý.","Chỉ có toàn xã hội cùng nỗ lực mới giải quyết được vấn đề này từ gốc rễ.","Xét từ gốc rễ, nâng cao tố chất toàn dân mới là then chốt.","Tổng hợp những điều trên, giáo dục trực tuyến lợi nhiều hơn hại.","Nói chung, mấu chốt để giải quyết vấn đề này là nâng cao ý thức của mọi người.","Từ đó có thể thấy, chữ tín là gốc của việc lập thân.","Hãy cùng nhau chung tay nỗ lực, xây dựng một môi trường tốt đẹp.","Hãy bắt đầu từ bây giờ, từ chính bản thân mình.","Tin rằng chỉ cần mọi người cùng nỗ lực, nhất định sẽ giải quyết được khó khăn này.","Nhìn về tương lai, chúng ta có lý do để tràn đầy niềm tin vào việc bảo vệ môi trường."],
+"fm":["Cùng với sự phát triển/phổ cập của …, … đã trở thành …","Những năm gần đây, hiện tượng … ngày càng phổ biến, thu hút sự quan tâm rộng rãi của xã hội.","Xã hội ngày nay, … rất được quan tâm.","Về …, mỗi người một ý: có người cho rằng …, cũng có người cho rằng …","Đối với vấn đề …, có thể nói là mỗi người một cách nhìn.","Tục ngữ có câu: “…”.","Theo tôi / theo người viết, …","Tôi cho rằng …, lý do như sau.","Xét nguyên nhân, chủ yếu có mấy điểm sau.","Nguyên nhân dẫn đến hiện tượng này có nhiều mặt.","Trước hết …; tiếp đến …; ngoài ra …; cuối cùng … (liệt kê).","Điều này ở mức độ lớn bắt nguồn từ …","Suy cho cùng, …","Sở dĩ … là vì …","Hiện tượng này đã tạo ảnh hưởng sâu rộng đến …","Một mặt …, mặt khác …","Cứ tiếp diễn như vậy lâu dài, …","Lâu dần thì …","Tác hại của việc này không thể xem nhẹ.","Không chỉ …, mà còn …","Theo thống kê / khảo sát cho thấy, …","Có nghiên cứu chỉ ra rằng, …","Lấy … làm ví dụ, …","Ví dụ như … / Chẳng hạn …","Không khó nhận thấy rằng, …","Thực tế đã chứng minh, …","Đúng như … đã nói, …","Đồng thời, …","Đáng lưu ý là / cần chỉ ra rằng, …","Không chỉ như vậy, …","Quả thực …, nhưng … (nhượng bộ trước rồi chuyển ý).","Tuy nhiên, sự vật đều có hai mặt.","Nhìn từ một góc độ khác, …","Từ đó có thể thấy, …","Vậy chúng ta nên ứng phó thế nào? (chuyển sang giải pháp)","Để giải quyết vấn đề này, chúng ta nên bắt tay từ mấy phương diện sau.","Trước hết, chính phủ cần …; tiếp đến, nhà trường/doanh nghiệp nên …; cuối cùng, cá nhân cần …","Các cơ quan liên quan cần tăng cường / hoàn thiện / đẩy mạnh … (mức độ).","Cần hướng dẫn / khuyến khích / đề xướng …","Chỉ có …, mới có thể …","Xét từ gốc rễ, …","Tóm lại / tổng hợp những điều trên, …","Nói chung, mấu chốt của … nằm ở …","Từ đó có thể thấy, … (khẳng định lại quan điểm).","Hãy cùng nhau chung tay nỗ lực, …","Hãy bắt đầu từ bây giờ, từ chính bản thân mình.","Tin rằng chỉ cần …, nhất định sẽ …","Nhìn về tương lai, …"]};
+(function(){
+  ['vocab','grammar','frames'].forEach(function(k){
+    var n=0;
+    DECKS[k].groups.forEach(function(g){ g.items.forEach(function(it){ it.tr=VI[k][n]; if(k==='frames') it.pm=VI.fm[n]; n++; }); });
+  });
+})();
 var ORDER=['vocab','grammar','frames','review'];
 var TABNAMES={vocab:'Từ vựng 书面语',grammar:'Ngữ pháp',frames:'Khung câu',review:'Ôn tập thẻ nhớ'};
 
@@ -403,7 +428,7 @@ function cardHtml(x,deckKey){
     '<div class="k">'+key+'</div>'+
     '<div class="w rev">'+esc(main)+'</div>'+
     (sub?'<div class="m rev">'+esc(sub)+'</div>':'')+
-    '<div class="ex rev">'+esc(ex)+'</div></article>';
+    '<div class="ex rev">'+esc(ex)+'</div><div class="tr rev">'+esc(it.tr||'')+'</div></article>';
 }
 function render(){
   if(S.tab==='review'){ renderReview(); return; }
@@ -414,7 +439,7 @@ function render(){
   var list=allItems(k).filter(function(x){
     if(S.group!==-1 && x.gi!==S.group) return false;
     if(S.onlyTodo && known[x.id]) return false;
-    if(q && x.it.join(' ').toLowerCase().indexOf(q)===-1) return false;
+    if(q && (x.it.join(' ')+' '+(x.it.tr||'')+' '+(x.it.pm||'')).toLowerCase().indexOf(q)===-1) return false;
     return true;
   });
   var html='<div class="bar">'+
@@ -427,11 +452,27 @@ function render(){
   if(!list.length){ html+='<div class="empty">Không có mục nào khớp.</div>'; }
   else{
     // group headings when showing all groups
-    html+='<div class="'+(S.hide?'hide ':'')+'grid" id="grid">'+list.map(function(x){return cardHtml(x,k);}).join('')+'</div>';
+    html+=(k==='vocab')?('<div class="'+(S.hide?'hide ':'')+'grid" id="grid">'+list.map(function(x){return cardHtml(x,k);}).join('')+'</div>'):listView(list,k);
   }
   html+='<section class="notes">'+d.notes+'</section>';
   app.innerHTML=html;
   var qi=document.getElementById('q'); if(S.q){ qi.focus(); qi.setSelectionRange(S.q.length,S.q.length); }
+}
+function listView(list,k){
+  var out='<div class="'+(S.hide?'hide':'')+'">', last=-1, open=false, isG=(k==='grammar');
+  list.forEach(function(x){
+    if(x.gi!==last){ if(open) out+='</ul>'; out+='<h2 class="gh">'+esc(DECKS[k].groups[x.gi].name)+'</h2><ul class="lst">'; last=x.gi; open=true; }
+    var it=x.it, done=!!known[x.id];
+    out+='<li class="row'+(done?' done':'')+'" data-id="'+x.id+'" tabindex="0">'+
+      '<button class="chk" aria-label="Đánh dấu đã thuộc" aria-pressed="'+done+'" data-chk="'+x.id+'">✓</button>'+
+      '<div class="cue'+(isG?' long':'')+'">'+esc(it[0])+'</div>'+
+      '<div class="pat rev">'+esc(it[1])+'</div>'+
+      (isG?'':'<div class="pm rev">'+esc(it.pm||'')+'</div>')+
+      '<div class="ex rev">'+esc(it[2])+'</div>'+
+      '<div class="tr rev">'+esc(it.tr||'')+'</div></li>';
+  });
+  if(open) out+='</ul>';
+  return out+'</div>';
 }
 function buildFc(){
   var d=S.fcDeck; S.fcList=allItems(d).filter(function(x){return !known[x.id];});
@@ -445,7 +486,7 @@ function renderReview(){
   }).join('');
   var x=S.fcList[S.fcIdx], it=x.it, isV=S.fcDeck==='vocab', d=DECKS[S.fcDeck];
   var front=esc(it[0]);
-  var back='<div class="lab">Đáp án</div><div class="big">'+esc(it[1])+'</div>'+(isV?'<div class="m">'+esc(it[2])+'</div>':'')+'<div class="ex">'+esc(isV?it[3]:it[2])+'</div>';
+  var back='<div class="lab">Đáp án</div><div class="big">'+esc(it[1])+'</div>'+(isV?'<div class="m">'+esc(it[2])+'</div>':(S.fcDeck==='frames'?'<div class="m">'+esc(it.pm||'')+'</div>':''))+'<div class="ex">'+esc(isV?it[3]:it[2])+'</div><div class="tr">'+esc(it.tr||'')+'</div>';
   var face=S.fcFlip?back:'<div class="lab">'+d.keyLabel+'</div><div class="front">'+front+'</div><div class="hint">Chạm vào thẻ để lật</div>';
   app.innerHTML='<div class="fc"><div class="decks">'+decks+'</div>'+
     '<div class="count">Thẻ '+(S.fcIdx+1)+' / '+S.fcList.length+' (chưa thuộc trước)</div>'+
@@ -478,7 +519,7 @@ app.addEventListener('click',function(e){
     return;
   }
   if(t.closest('#fcard')){ S.fcFlip=!S.fcFlip; renderReview(); return; }
-  var card=t.closest('.card'); if(card && S.hide){ card.classList.toggle('shown'); }
+  var card=t.closest('.card,.row'); if(card && S.hide){ card.classList.toggle('shown'); }
 });
 app.addEventListener('input',function(e){
   if(e.target.id==='q'){ S.q=e.target.value; render(); }
